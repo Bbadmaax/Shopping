@@ -1,8 +1,9 @@
 import React from 'react'
+import Cartitem from '../components/Cartitem'
 
 function Cart() {
   return (
-    <div>Cart</div>
+    <Cartitem />
   )
 }
 

@@ -22,6 +22,7 @@ function Productdetail() {
                 setTimeout(()=> {
  setproductdetails(data)
                 setmainimage(data.thumbnail)
+                setloading(false)
                 },2000)
                
             } catch (error) {
