@@ -13,6 +13,10 @@ import Cart from './Pages/Cart';
 import Products from './Pages/Products';
 import Product from './Pages/Product';
 
+// redux import 
+import {Provider} from "react-redux"
+import store from './Redux/Store';
+
 
 // router setup
 const router = createBrowserRouter([
@@ -33,7 +37,9 @@ const router = createBrowserRouter([
 
 createRoot(document.getElementById('root')).render(
   <StrictMode>
+    <Provider store={store}>  
     <RouterProvider router={router} >
     </RouterProvider>
-  </StrictMode>,
+     </Provider>
+  </StrictMode>
 )

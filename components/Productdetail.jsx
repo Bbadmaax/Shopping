@@ -4,6 +4,10 @@ import { useNavigate, useParams } from 'react-router-dom'
 import Productdetailskeleton from '../skeleton/Productdetailskeleton'
 
 
+//redux import
+import { Addcart}  from "../Redux/shopSlice"
+import { useDispatch } from 'react-redux'
+
 function Productdetail() {
 
     const [productdetails, setproductdetails] = useState({})
@@ -11,6 +15,7 @@ function Productdetail() {
     const navigate = useNavigate()
     const [mainimage, setmainimage] = useState("")
     const [loading,setloading] = useState(true)
+     const dispatch = useDispatch()
 
     useEffect(() => {
         const fetchdate = async () => {
@@ -36,14 +41,17 @@ function Productdetail() {
 
     function goback() {
         navigate("/products")
-
     }
 
     if(loading) return < Productdetailskeleton />
-    
-
     if ( !productdetails.id) {
         return <div className="text-center mt-10 text-gray-500">product not found</div>
+    }
+
+   
+    function handleAddCart() {
+        dispatch(Addcart(productdetails))
+        console.log(productdetails)
     }
 
     return (
@@ -103,7 +111,8 @@ function Productdetail() {
              hover-shadow-[2px_2px_black]
              hover:border-2
              transtion-shadow transtion-border duration-200 ease-in-out
-                      '>Add to Cart</div>
+                      '
+                      onClick={handleAddCart}>Add to Cart</div>
                 </div>
 
 

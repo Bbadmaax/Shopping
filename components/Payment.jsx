@@ -1,6 +1,10 @@
 import React from 'react'
+import { useSelector } from 'react-redux'
 
 function Payment() {
+
+    // redux import
+    const {total} =useSelector((state)=> state.shop)
     return (
         <div className=' lg:w-1/3 md:w-1/2 sm:w-1/2 shadow-md p-5 h-80 rounded-xl mr-auto ml-10 mt-4 '>
             <h1 className='font-bold'>Choose Payment Method </h1>
@@ -20,11 +24,11 @@ function Payment() {
 
             <div className='flex justify-between  mt-4'>
                 <span className='font-semibold'>  total </span>
-                <span className='font-semibold'> $252</span>
+                <span className='font-semibold'> ${total} </span>
             </div>
             <div className='flex justify-between   mt-4'>
                 <span className='text-red-500 font-bold text-lg'> Subtotal</span>
-                <span className='text-red-500 font-bold text-lg'> $2522</span>
+                <span className='text-red-500 font-bold text-lg'> ${total} </span>
             </div>
 
             <div className='mt-6 text-center text-white '>

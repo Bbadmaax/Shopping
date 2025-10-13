@@ -1,8 +1,14 @@
 import React from 'react'
+import { useSelector } from 'react-redux'
 import { Link } from 'react-router-dom'
 
 
 function Header() {
+
+  // kasoo qaaad products-ka redux store
+  const { products } = useSelector((state) => state.shop)
+
+
   return (
     <div className='fixed top-0 left-0 right-0 bg-white backdrop-blur-lg shadow-md  z-10' >
 
@@ -25,7 +31,9 @@ function Header() {
                -right-1 bg-red-500
                 rounded-full w-5 h-5 flex 
                 self-center justify-center
-                 text-white'>0</span>
+                 text-white'>
+                {products.length}
+              </span>
             </Link>
           </div>
 
