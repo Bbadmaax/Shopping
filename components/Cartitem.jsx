@@ -38,7 +38,7 @@ function Cartitem() {
 
                  //   redux dispatch called action function
                onChange={(e)=>
-                 dispatch(updatedproductQuantity({product, newQuantity: Number(e.target.value)}))}
+                 dispatch(updatedproductQuantity({ product, newQuantity: Number(e.target.value) }))}
                 className='border w-10  shadow-[4px_4px_black] 
                 rounded-md hover:shadow-[2px_2px_black]
                  transition-shadow duration-200 ease-in'
@@ -65,4 +65,5 @@ function Cartitem() {
 export default Cartitem
 
 
- 
+  
+  

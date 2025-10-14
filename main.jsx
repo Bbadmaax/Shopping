@@ -16,6 +16,7 @@ import Product from './Pages/Product';
 // redux import 
 import {Provider} from "react-redux"
 import store from './Redux/Store';
+import TodoApp from './components/TodoApp';
 
 
 // router setup
@@ -30,7 +31,8 @@ const router = createBrowserRouter([
       {path: "/Contact", element : < Contact />},
       {path : "/Cart", element : < Cart />},
       {path: "/Products", element: < Products/> },
-      {path : "Product-detail/:id", element: < Product />}
+      {path : "Product-detail/:id", element: < Product />},
+       {path : "todo", element : <TodoApp/>},
     ]
   }
 ])
