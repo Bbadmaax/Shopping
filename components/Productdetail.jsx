@@ -22,10 +22,8 @@ function Productdetail() {
             try {
                 setloading(true)
                 let { data } = await axios.get(`https://dummyjson.com/products/${id}`)
-                console.log(data)
-
                 setTimeout(()=> {
- setproductdetails(data)
+                setproductdetails(data)
                 setmainimage(data.thumbnail)
                 setloading(false)
                 },2000)
@@ -34,7 +32,6 @@ function Productdetail() {
                 console.log(`errror`)
                 setloading(false)
             }
-
         }
         fetchdate()
     }, [id])
@@ -44,14 +41,9 @@ function Productdetail() {
     }
 
     if(loading) return < Productdetailskeleton />
+
     if ( !productdetails.id) {
         return <div className="text-center mt-10 text-gray-500">product not found</div>
-    }
-
-   
-    function handleAddCart() {
-        dispatch(Addcart(productdetails))
-        console.log(productdetails)
     }
 
     return (
@@ -112,7 +104,7 @@ function Productdetail() {
              hover:border-2
              transtion-shadow transtion-border duration-200 ease-in-out
                       '
-                      onClick={handleAddCart}>Add to Cart</div>
+                      onClick={()=> dispatch(Addcart(productdetails))}>Add to Cart</div>
                 </div>
 
 

@@ -2,7 +2,7 @@ import React from 'react'
 import { FaRegTrashAlt } from "react-icons/fa";
 import Payment from './Payment';
 
-//import redux
+//import redux-toolkit dispatc useselctor
 import { useSelector, useDispatch } from 'react-redux';
 import {updatedproductQuantity,RemovefromCart} from "../Redux/shopSlice"
 
@@ -11,15 +11,7 @@ function Cartitem() {
   const {products} = useSelector((state)=> state.shop)
   const dispatch = useDispatch()
 
-function handleRemove(product) {
-  dispatch(RemovefromCart(product))
-}
  
-function handleQuantityChange(product, newQuantity) {
-  dispatch(updatedproductQuantity({ product, newQuantity: Number(newQuantity) }));
-}
-
-
   return (
     <div className=' flex flex-col md:flex-row gap-6'>
      
@@ -39,17 +31,22 @@ function handleQuantityChange(product, newQuantity) {
 
             <div className='flex  gap-4 items-center mt-4 space-x-3'>
               <span className='text-red-500 font-bold'> ${product.price} </span>
-              <label className='font-bold'>  quantity</label>
+              <label className='font-bold'>quantity</label>
               < input type='number'
                min={0}
                value={product.quantity}
-               onChange={(e)=> handleQuantityChange(product, e.target.value)}
+
+                 //   redux dispatch called action function
+               onChange={(e)=>
+                 dispatch(updatedproductQuantity({product, newQuantity: Number(e.target.value)}))}
                 className='border w-10  shadow-[4px_4px_black] 
                 rounded-md hover:shadow-[2px_2px_black]
                  transition-shadow duration-200 ease-in'
               />
               <button
-              onClick={() => handleRemove(product)}
+
+              //   redux dispatch called action function
+              onClick={()=> dispatch(RemovefromCart(product))}
                className="text-red-500">
                  <FaRegTrashAlt /> 
                   </button>
@@ -66,3 +63,6 @@ function handleQuantityChange(product, newQuantity) {
 }
 
 export default Cartitem
+
+
+ 
