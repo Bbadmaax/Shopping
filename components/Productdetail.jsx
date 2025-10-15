@@ -1,50 +1,45 @@
-import axios from 'axios'
-import React, { useEffect, useState } from 'react'
+
+import React, { useEffect, useEffectEvent, useState } from 'react'
 import { useNavigate, useParams } from 'react-router-dom'
 import Productdetailskeleton from '../skeleton/Productdetailskeleton'
 
 
 //redux import
-import { Addcart}  from "../Redux/shopSlice"
-import { useDispatch } from 'react-redux'
+import { Addcart } from "../Redux/shopSlice"
+import { useDispatch, useSelector } from 'react-redux'
+import { fetchdateDetail } from '../Redux/productdetailsSlice'
 
 function Productdetail() {
 
-    const [productdetails, setproductdetails] = useState({})
+    const dispatch = useDispatch()
+    const { productDetailss, loading, error } = useSelector((state) => state.productDetail)
     const { id } = useParams()
     const navigate = useNavigate()
     const [mainimage, setmainimage] = useState("")
-    const [loading,setloading] = useState(true)
-     const dispatch = useDispatch()
+
 
     useEffect(() => {
-        const fetchdate = async () => {
-            try {
-                setloading(true)
-                let { data } = await axios.get(`https://dummyjson.com/products/${id}`)
-                setTimeout(()=> {
-                setproductdetails(data)
-                setmainimage(data.thumbnail)
-                setloading(false)
-                },2000)
-               
-            } catch (error) {
-                console.log(`errror`)
-                setloading(false)
-            }
-        }
-        fetchdate()
-    }, [id])
+        //if(id){
+        dispatch(fetchdateDetail(id))
+        //}
+    }, [id, dispatch])
 
     function goback() {
         navigate("/products")
     }
 
-    if(loading) return < Productdetailskeleton />
+    // main image 
+    useEffect(() => {
+        if (productDetailss?.thumbnail) {
+            setmainimage(productDetailss.thumbnail)
+        }
+    }, [productDetailss])
 
-    if ( !productdetails.id) {
+    if (loading) return < Productdetailskeleton />
+    if (!productDetailss?.id) {
         return <div className="text-center mt-10 text-gray-500">product not found</div>
     }
+    if (error) return <p>{error} </p>
 
     return (
         <div className='p-4 md:p-8 '>
@@ -71,7 +66,7 @@ function Productdetail() {
                     <div className='md:grid grid-cols-4 gap-4  mt-2 mb-2   w-full
                     rounded-xl bg-gray-200
                     '>
-                        {productdetails.images.map((image, index) => (
+                        {productDetailss.images.map((image, index) => (
                             <img key={index} src={mainimage}
                                 onClick={() => setmainimage(image)}
                             />
@@ -81,19 +76,19 @@ function Productdetail() {
 
 
 
-                <div className='p-4 '>.       
-                    <div className='mt-4 font-bold '>{productdetails.title} </div>
+                <div className='p-4 '>.
+                    <div className='mt-4 font-bold '>{productDetailss.title} </div>
 
                     <div className='flex justify-between items-center mt-4'>
-                        <div className='mt-4 font-bold text-red-500'>${productdetails.price} </div>
+                        <div className='mt-4 font-bold text-red-500'>${productDetailss.price} </div>
                         <div className='mt-4'>
-                            {productdetails.stock > 0 ? <span>{productdetails.stock}-inStock </span> : <span>out-stock</span>}
+                            {productDetailss.stock > 0 ? <span>{productDetailss.stock}-inStock </span> : <span>out-stock</span>}
                         </div>
                     </div>
 
                     <div className='mt-4'>
-                        <span className='text-orange-300'>{"✬".repeat(Math.round(productdetails.rating))} </span>
-                        <span className='text-gray-200'>{"★".repeat(Math.round(5 - productdetails.rating))} </span>
+                        <span className='text-orange-300'>{"✬".repeat(Math.round(productDetailss.rating))} </span>
+                        <span className='text-gray-200'>{"★".repeat(Math.round(5 - productDetailss.rating))} </span>
                     </div>
                     <div className='mt-4 bg-red-500 w-40 p-3
                      rounded-xl text-center
@@ -104,7 +99,7 @@ function Productdetail() {
              hover:border-2
              transtion-shadow transtion-border duration-200 ease-in-out
                       '
-                      onClick={()=> dispatch(Addcart(productdetails))}>Add to Cart</div>
+                        onClick={() => dispatch(Addcart(productDetailss))}>Add to Cart</div>
                 </div>
 
 
