@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom'
 
 
 function Header() {
+ 
 
   // kasoo qaaad products-ka redux store
   const { products } = useSelector((state) => state.shop)
@@ -22,6 +23,9 @@ function Header() {
           <Link to='/contact' className='font-semibold hover:text-pink-500'>Contact</Link>
           <Link to='/products' className='font-semibold hover:text-pink-500'>Products</Link>
 
+         
+
+
           <div className=' relative'>
             <Link to='/Cart' className='font-semibold hover:text-pink-500'>
               <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="size-6">
@@ -37,7 +41,7 @@ function Header() {
             </Link>
           </div>
 
-
+   
         </nav>
       </div>
 
