@@ -28,3 +28,6 @@ function Productitem({ product }) {
 }
 
 export default Productitem
+
+
+

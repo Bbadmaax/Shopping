@@ -20,7 +20,7 @@ const  handlelogin = (event)=> {
 }
 
   return (
-    <div className='flex justify-center items-center h-screen bg-gray-100'>
+    <div className='flex justify-center items-center h-screen bg-gray-100 rounded-2xl shadow-[15px_-10px_black]'>
    <form onSubmit={handlelogin}
    className='bg-white p-6 rounded shadow-md w-96'>
     <h2 className='text-2xl  font-bold mb-4text-center'>Login</h2>
